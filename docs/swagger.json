@@ -1,0 +1,109 @@
+{
+  "openapi":"3.0.1",
+  "info":{
+    "description":"This service transfer your web page sketch into an html page",
+    "title":"Sketch2Code",
+    "version":"1.0.0"
+  },
+  "tags":[
+    {
+      "name":"process",
+      "description":"transfer a sketch into an html webpage"
+    }
+  ],
+  "paths":{
+    "/process":{
+      "post":{
+        "security":[
+          {
+            "apikey":[
+
+            ]
+          }
+        ],
+        "tags":[
+          "process"
+        ],
+        "summary":"Will transfer a sketch into an html webpage",
+        "description":"This service will transfer a sketch into an html webpage",
+        "operationId":"process",
+        "responses":{
+          "400":{
+            "description":"Error"
+          },
+          "401":{
+            "description":"Unauthorized"
+          },
+          "200":{
+            "content":{
+              "image/png":{
+                "schema":{
+                  "type":"string",
+                  "format":"binary",
+                  "items":{
+                    "$ref":"#/components/schemas/Response"
+                  }
+                }
+              },
+              "application/octet-stream":{
+                "schema":{
+                  "type":"string",
+                  "format":"binary",
+                  "items":{
+                    "$ref":"#/components/schemas/Response"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody":{
+          "description":"Will transfer a sketch into an html webpage,
+          "required":true,
+          "content":{
+            "application/json":{
+              "schema":{
+                "$ref":"#/components/schemas/Body"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components":{
+    "securitySchemes":{
+      "apikey":{
+        "type":"apiKey",
+        "name":"X-OVH-Api-Key",
+        "in":"header"
+      }
+    },
+    "schemas":{
+      "Body":{
+        "type":"object",
+        "required":[
+          "url",
+	  "style"
+        ],
+        "properties":{
+          "url":{
+            "type":"string",
+            "example":"https://i.ibb.co/T4nTjth/input.png"
+          }
+        },
+        "Response": {
+          "description": "HTML page",
+          "content":{
+            "image/png":{
+              "schema":{
+                "type":"string",
+                "format":"binary"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
